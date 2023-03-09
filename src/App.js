@@ -1,24 +1,27 @@
 import { useState } from 'react';
 import React from "react";
 
+function Square({ value }) {
+  return <button className="square">{value}</button>;
+}
 
-export default function Square() {
+export default function Board() {
   return (
     <div>
       <div className="board-row">
-        <button className="square">1</button>
-        <button className="square">2</button>
-        <button className="square">3</button>
+        <Square value="1" />
+        <Square value="2" />
+        <Square value="3" />
       </div>
       <div className="board-row">
-        <button className="square">8</button>
-        <button className="square"> </button>
-        <button className="square">4</button>
+        <Square value="8" />
+        <Square value=" " />
+        <Square value="4" />
       </div>
       <div className="board-row">
-        <button className="square">7</button>
-        <button className="square">6</button>
-        <button className="square">5</button>
+        <Square value="7" />
+        <Square value="6" />
+        <Square value="5" />
       </div>
     </div>
   );
