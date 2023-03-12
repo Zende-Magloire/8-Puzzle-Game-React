@@ -13,6 +13,10 @@ h1 {
   font-size: 22px;
 }
 
+.h1 {
+  font-size: 90;
+}
+
 h2 {
   margin-top: 0;
   font-size: 20px;
@@ -57,18 +61,18 @@ body {
 }
 
 .square {
-  background: #fff;
-  border: 1px solid #999;
+  background: aqua;
+  border: 2px solid palevioletred;
   float: left;
   font-size: 24px;
   font-weight: bold;
-  line-height: 34px;
-  height: 34px;
+  line-height: 100px;
+  height: 100px;
   margin-right: -1px;
   margin-top: -1px;
   padding: 0;
   text-align: center;
-  width: 34px;
+  width: 100px;
 }
 
 .board-row:after {
@@ -80,6 +84,7 @@ body {
 .status {
   margin-bottom: 10px;
 }
+
 .game {
   display: flex;
   flex-direction: row;
