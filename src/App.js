@@ -1,5 +1,6 @@
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import React from "react";
+
 function Square({ value, onSquareClick }) {
   return (
     <button className="square" onClick={onSquareClick}>
@@ -9,10 +10,30 @@ function Square({ value, onSquareClick }) {
 }
 
 export default function Board() {
+  const [youWin, setYouWin] = useState(false);
   const [squares, setSquares] = useState([1, 2, 3, 8, null, 4, 7, 6, 5]);
+  const [Clicked, setClicked] = useState(false);
   const goalSquares = [1, 2, 3, 8, null, 4, 7, 6, 5];
 
+  //check win
+  useEffect(() => {
+    if (Clicked) {
+ 
+      let allSame =
+        goalSquares.length === squares.length &&
+        goalSquares.every((element, index) => element === squares[index]);
+      if (allSame) {
+        setYouWin(true)
+        console.log("Arrays are the same");
+      } else {
+        console.log("Arrays are different");
+        setYouWin(false);
+      }
+    }
+  }, [squares, goalSquares]);
+
   function handleClick(i) {
+    setClicked(true)
     const newSquares = [...squares];
 
     var empty = null;
@@ -25,7 +46,7 @@ export default function Board() {
     }
 
     let index1 = empty;
-    let index2 = i; 
+    let index2 = i;
 
     // Check if elements are next to each other
     if (
@@ -53,25 +74,27 @@ export default function Board() {
   }
   return (
     <div>
-      {" "}
-      <h1> 8 PUZZLE GAME </h1>{" "}
+      <h1> 8 PUZZLE GAME </h1>
+      {youWin ? <h2 className="win">YOU WIN!</h2> : ""}
+      <div className="table">
       <div className="board-row">
-        {" "}
-        <Square value={squares[0]} onSquareClick={() => handleClick(0)} />{" "}
-        <Square value={squares[1]} onSquareClick={() => handleClick(1)} />{" "}
-        <Square value={squares[2]} onSquareClick={() => handleClick(2)} />{" "}
-      </div>{" "}
+        <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
+        <Square value={squares[1]} onSquareClick={() => handleClick(1)} />
+        <Square value={squares[2]} onSquareClick={() => handleClick(2)} />
+      </div>
       <div className="board-row">
         <Square value={squares[3]} onSquareClick={() => handleClick(3)} />
         <Square value={squares[4]} onSquareClick={() => handleClick(4)} />
         <Square value={squares[5]} onSquareClick={() => handleClick(5)} />
-      </div>{" "}
+      </div>
       <div className="board-row">
-        {" "}
-        <Square value={squares[6]} onSquareClick={() => handleClick(6)} />{" "}
-        <Square value={squares[7]} onSquareClick={() => handleClick(7)} />{" "}
-        <Square value={squares[8]} onSquareClick={() => handleClick(8)} />{" "}
-      </div>{" "}
+        <Square value={squares[6]} onSquareClick={() => handleClick(6)} />
+        <Square value={squares[7]} onSquareClick={() => handleClick(7)} />
+        <Square value={squares[8]} onSquareClick={() => handleClick(8)} />
+        </div>
+        </div>
     </div>
   );
 }
+
+

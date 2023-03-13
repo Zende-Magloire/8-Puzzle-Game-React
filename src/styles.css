@@ -15,15 +15,20 @@ h1 {
   border: 2px solid pink;
   border-radius: 20px;
   padding: 15px 25px;
-  margin-left: auto;
-  margin-right: auto;
   margin-bottom: 2%;
   margin-top: 0%;
 }
 
 h2 {
-  margin-top: 0;
-  font-size: 20px;
+  font-size: 8vh;
+  text-align: center;
+  color: palevioletred;
+  border: 2px solid aqua;
+  border-radius: 20px;
+  margin-left: 50px;
+  margin-right: 50px;
+  margin-bottom: 2%;
+  margin-top: 0%;
 }
 
 h3 {
@@ -77,6 +82,19 @@ body {
   padding: 0;
   text-align: center;
   width: 100px;
+}
+
+.table{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  z-index: -1;
+}
+
+.win{
+  z-index: 1000;
+  margin-top: 150px;
 }
 
 .board-row:after {
