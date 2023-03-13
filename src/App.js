@@ -1,6 +1,5 @@
-import { useState } from 'react';
+import { useState,useEffect } from "react";
 import React from "react";
-
 function Square({ value, onSquareClick }) {
   return (
     <button className="square" onClick={onSquareClick}>
@@ -10,31 +9,69 @@ function Square({ value, onSquareClick }) {
 }
 
 export default function Board() {
-  const [squares, setSquares] = useState(Array(9).fill(null));
+  const [squares, setSquares] = useState([1, 2, 3, 8, null, 4, 7, 6, 5]);
+  const goalSquares = [1, 2, 3, 8, null, 4, 7, 6, 5];
 
-  function handleClick() {
-    const nextSquares = squares.slice();
-    nextSquares[0] = "X";
-    setSquares(nextSquares);
+  function handleClick(i) {
+    const newSquares = [...squares];
+
+    var empty = null;
+    for (let j = 0; j < newSquares.length; j++) {
+      //Check for null
+      if (newSquares[j] == null) {
+        empty = j;
+        break;
+      }
+    }
+
+    let index1 = empty;
+    let index2 = i; 
+
+    // Check if elements are next to each other
+    if (
+      Math.abs(index1 - index2) === 1 &&
+      Math.floor(index1 / 3) === Math.floor(index2 / 3)
+    ) {
+      // Elements are next to each other on the same row
+      console.log("Swap");
+
+      var temp = newSquares[index2];
+      newSquares[index2] = null;
+      newSquares[index1] = temp;
+    } else if (Math.abs(index1 - index2) === 3 && index1 % 3 === index2 % 3) {
+      // Elements are next to each other in the same column
+      var temp = newSquares[index2];
+      newSquares[index2] = null;
+      newSquares[index1] = temp;
+      console.log("Swap");
+    } else {
+      console.log("Nothing");
+      // Elements are not next to each other
+    }
+
+    setSquares(newSquares);
   }
-
   return (
     <div>
+      {" "}
+      <h1> 8 PUZZLE GAME </h1>{" "}
       <div className="board-row">
-        <Square value="1" onSquareClick={() => handleClick(0)} />
-        <Square value="2" onSquareClick={() => handleClick(1)} />
-        <Square value="3" onSquareClick={() => handleClick(2)} />
-      </div>
+        {" "}
+        <Square value={squares[0]} onSquareClick={() => handleClick(0)} />{" "}
+        <Square value={squares[1]} onSquareClick={() => handleClick(1)} />{" "}
+        <Square value={squares[2]} onSquareClick={() => handleClick(2)} />{" "}
+      </div>{" "}
       <div className="board-row">
-        <Square value="8" onSquareClick={() => handleClick(3)} />
-        <Square value=" " onSquareClick={() => handleClick(4)} />
-        <Square value="4" onSquareClick={() => handleClick(5)} />
-      </div>
+        <Square value={squares[3]} onSquareClick={() => handleClick(3)} />
+        <Square value={squares[4]} onSquareClick={() => handleClick(4)} />
+        <Square value={squares[5]} onSquareClick={() => handleClick(5)} />
+      </div>{" "}
       <div className="board-row">
-        <Square value="7" onSquareClick={() => handleClick(6)} />
-        <Square value="6" onSquareClick={() => handleClick(7)} />
-        <Square value="5" onSquareClick={() => handleClick(8)} />
-      </div>
+        {" "}
+        <Square value={squares[6]} onSquareClick={() => handleClick(6)} />{" "}
+        <Square value={squares[7]} onSquareClick={() => handleClick(7)} />{" "}
+        <Square value={squares[8]} onSquareClick={() => handleClick(8)} />{" "}
+      </div>{" "}
     </div>
   );
 }
