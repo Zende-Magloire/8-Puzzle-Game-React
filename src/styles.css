@@ -89,12 +89,29 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%,-50%);
-  z-index: -1;
 }
 
 .win{
-  z-index: 1000;
-  margin-top: 150px;
+  margin-top: 30%;
+}
+
+.button{
+  position: absolute;
+  top: 90%;
+  margin-left: 44%;
+  margin-right: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  text-align: center;
+  border-radius: 20px;
+  background-color: palevioletred;
+  box-shadow: 0 5px pink;
+  color: blanchedalmond;
+  transform: translateY(4px);
+}
+
+.list-table{
+  font-size: small;
 }
 
 .board-row:after {
