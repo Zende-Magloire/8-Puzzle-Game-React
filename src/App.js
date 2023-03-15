@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import React from "react";
 
+//SQUARE
 function Square({ value, onSquareClick }) {
   return (
     <button className="square" onClick={onSquareClick}>
@@ -9,14 +10,15 @@ function Square({ value, onSquareClick }) {
   );
 }
 
+//BOARD
 export default function Board() {
   const [youWin, setYouWin] = useState(false);
   const [squares, setSquares] = useState([1, 2, 3, 8, null, 4, 7, 6, 5]);
-  const [Clicked, setClicked] = useState(false);
- 
+  const [Clicked, setClicked] = useState(false); //you only win if you click to play
   const [moves, setMoves] = useState([]);
   const goalSquares = [1, 2, 3, 8, null, 4, 7, 6, 5];
 
+  //did you win?
   useEffect(() => {
     if (Clicked) {
       let allSame =
@@ -32,13 +34,14 @@ export default function Board() {
     }
   }, [squares, goalSquares]);
 
+  //GAME
   function Game(moves, index2, index1, newSquares) {
     setMoves([
       ...moves,
       { from: index2, to: index1, value: newSquares[index1] },
     ]);
   }
-
+//scrabble
   function scrabble()
   {
     const newSquares = [...squares];
@@ -76,6 +79,7 @@ export default function Board() {
   }
 
   function handleClick(i) {
+    //swapping
     setClicked(true);
     const newSquares = [...squares];
     var empty = null;
