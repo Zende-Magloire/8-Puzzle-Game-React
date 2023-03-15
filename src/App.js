@@ -13,6 +13,7 @@ export default function Board() {
   const [youWin, setYouWin] = useState(false);
   const [squares, setSquares] = useState([1, 2, 3, 8, null, 4, 7, 6, 5]);
   const [Clicked, setClicked] = useState(false);
+ 
   const [moves, setMoves] = useState([]);
   const goalSquares = [1, 2, 3, 8, null, 4, 7, 6, 5];
 
@@ -38,10 +39,47 @@ export default function Board() {
     ]);
   }
 
+  function scrabble()
+  {
+    const newSquares = [...squares];
+    for (let c = 0; c < 36; c++) {
+      var empty = null;
+      for (let j = 0; j < newSquares.length; j++) {
+        if (newSquares[j] == null) {
+          empty = j;
+          break;
+        }
+      }
+      //see if it can swap
+      let index1 = empty;
+      let index2 = Math.floor(Math.random() * 9);
+      if (
+        Math.abs(index1 - index2) === 1 &&
+        Math.floor(index1 / 3) === Math.floor(index2 / 3)
+      ) {
+        console.log("Swap");
+        var temp = newSquares[index2];
+        newSquares[index2] = null;
+        newSquares[index1] = temp;
+        Game(moves, index2, index1, newSquares);
+      }
+      else if (Math.abs(index1 - index2) === 3 && index1 % 3 === index2 % 3) {
+        var temp = newSquares[index2];
+        newSquares[index2] = null;
+        newSquares[index1] = temp;
+        console.log("Swap");
+        Game(moves, index2, index1, newSquares);
+      }
+      else {
+        console.log("Nothing");
+      }
+    }
+    setSquares(newSquares);
+  }
+
   function handleClick(i) {
     setClicked(true);
     const newSquares = [...squares];
-
     var empty = null;
     for (let j = 0; j < newSquares.length; j++) {
       if (newSquares[j] == null) {
@@ -49,27 +87,27 @@ export default function Board() {
         break;
       }
     }
-
+    //see if it can swap
     let index1 = empty;
     let index2 = i;
-
     if (
       Math.abs(index1 - index2) === 1 &&
       Math.floor(index1 / 3) === Math.floor(index2 / 3)
     ) {
       console.log("Swap");
-
       var temp = newSquares[index2];
       newSquares[index2] = null;
       newSquares[index1] = temp;
       Game(moves, index2, index1, newSquares);
-    } else if (Math.abs(index1 - index2) === 3 && index1 % 3 === index2 % 3) {
+    }
+    else if (Math.abs(index1 - index2) === 3 && index1 % 3 === index2 % 3) {
       var temp = newSquares[index2];
       newSquares[index2] = null;
       newSquares[index1] = temp;
       console.log("Swap");
       Game(moves, index2, index1, newSquares);
-    } else {
+    }
+    else {
       console.log("Nothing");
     }
     setSquares(newSquares);
@@ -107,52 +145,9 @@ export default function Board() {
           ))}
         </ul>
       </div>
-      <button className="button" onClick={() => scrabble()}>
+      <button className="button" onClick={scrabble}>
         SCRABBLE PUZZLE
       </button>
     </div>
   );
-}
-
-function scrabble() {
-  const [squares, setSquares] = useState([1, 2, 3, 8, null, 4, 7, 6, 5]);
-  const ScrabbleSquares = [...squares];
-
-  for (let s = 0; s < 45; s++) {
-    var empty = null;
-    for (let j = 0; j < ScrabbleSquares.length; j++) {
-      //Check for null
-      if (ScrabbleSquares[j] == null) {
-        empty = j;
-        break;
-      }
-    }
-
-    let i = Math.floor(Math.random() * 9)
-    let index1 = empty;
-    let index2 = i;
-
-    // Check if elements are next to each other
-    if (
-      Math.abs(index1 - index2) === 1 &&
-      Math.floor(index1 / 3) === Math.floor(index2 / 3)
-    ) {
-      // Elements are next to each other on the same row
-      console.log("Swap");
-
-      var temp = ScrabbleSquares[index2];
-      ScrabbleSquares[index2] = null;
-      ScrabbleSquares[index1] = temp;
-    } else if (Math.abs(index1 - index2) === 3 && index1 % 3 === index2 % 3) {
-      // Elements are next to each other in the same column
-      var temp = ScrabbleSquares[index2];
-      ScrabbleSquares[index2] = null;
-      ScrabbleSquares[index1] = temp;
-      console.log("Swap");
-    } else {
-      console.log("Nothing");
-      // Elements are not next to each other
-    }
-  }
-  setSquares(ScrabbleSquares);
 }
