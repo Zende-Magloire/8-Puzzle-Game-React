@@ -61,14 +61,12 @@ export default function Board() {
         var temp = newSquares[index2];
         newSquares[index2] = null;
         newSquares[index1] = temp;
-        Game(moves, index2, index1, newSquares);
       }
       else if (Math.abs(index1 - index2) === 3 && index1 % 3 === index2 % 3) {
         var temp = newSquares[index2];
         newSquares[index2] = null;
         newSquares[index1] = temp;
         console.log("Swap");
-        Game(moves, index2, index1, newSquares);
       }
       else {
         console.log("Nothing");
